@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "bull-shit-bingo"
+version = "0.1.0"
+description = ""
+authors = ["MartinTritthart <martin.tritthart@student.tugraz.at>"]
+readme = "README.md"
+packages = [{include = "bull_shit_bingo"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.2"
+pandas = "^2.1.4"
+jinja2 = "^3.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
