@@ -1,11 +1,10 @@
-import pandas as pd
 import json
 
 
-def read_json(promt: str, file_path: str = "input/prompts.json") -> list:
+def read_json(prompt: str, file_path: str = "input/prompts.json") -> list:
     with open(file_path, "r") as f:
         data = json.load(f)
-    return data.get(promt, [])
+    return data.get(prompt, [])
 
 
 def write_to_latex(df, saving_path: str = "output/table.tex"):
