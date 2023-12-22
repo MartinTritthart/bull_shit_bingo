@@ -1,5 +1,6 @@
 import json
 import subprocess
+import os
 
 
 def read_json(prompt: str, file_path: str = "input/prompts.json") -> list:
@@ -28,9 +29,24 @@ def write_to_latex(df, saving_path: str = "output/table.tex"):
     print("Latex table saved")
 
 
-def running_latex(file_path: str):
+def running_latex(file_path: str, runs: int = 1):
     try:
-        subprocess.run(["pdflatex", file_path], check=True)
-        print("PDF generated")
+        for run_index in range(runs):
+            output_file = f"{run_index}"
+            aux_file_extensions = [
+                ".aux",
+                ".fdb_latexmk",
+                ".fls",
+                ".log",
+                ".synctex.gz",
+            ]
+            for ext in aux_file_extensions:
+                aux_file = f"{run_index}{ext}"
+                if os.path.exists(aux_file):
+                    os.remove(aux_file)
+            subprocess.run(
+                ["pdflatex", "-jobname", output_file, file_path], check=False
+            )
+        print(f"{runs} PDF generated")
     except subprocess.CalledProcessError as e:
         print(f"Error during compilation: {e}")
