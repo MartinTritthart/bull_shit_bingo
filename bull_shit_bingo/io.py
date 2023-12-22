@@ -1,4 +1,3 @@
-import pandas as pd
 import json
 import subprocess
 
@@ -10,11 +9,8 @@ def read_json(prompt: str, file_path: str = "input/prompts.json") -> list:
 
 
 def write_to_latex(df, saving_path: str = "output/table.tex"):
-    latex_table = df.to_latex(index=False, header=False, escape="\\")
-    # with open(saving_path, "w") as file:
-    #     file.write(latex_table)
     with open(saving_path, "w") as f:
-        f.write("\\begin{table}\n")
+        f.write("\\begin{table}[h]\n")
         f.write(
             "\\begin{tabularx}{\linewidth}{|"
             + "|".join(["X"] * len(df.columns))
