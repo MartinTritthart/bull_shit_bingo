@@ -1,5 +1,4 @@
-from bull_shit_bingo import io
-from bull_shit_bingo import bingo_table
+from bull_shit_bingo import bingo_table, io
 
 
 def main():

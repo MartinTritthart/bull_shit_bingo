@@ -1,10 +1,10 @@
 import json
-import subprocess
 import os
+import subprocess
 
 
 def read_json(prompt: str, file_path: str = "input/prompts.json") -> list:
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         data = json.load(f)
     return data.get(prompt, [])
 
@@ -12,11 +12,7 @@ def read_json(prompt: str, file_path: str = "input/prompts.json") -> list:
 def write_to_latex(df, saving_path: str = "output/table.tex"):
     with open(saving_path, "w") as f:
         f.write("\\begin{table}[h]\n")
-        f.write(
-            "\\begin{tabularx}{\linewidth}{|"
-            + "|".join(["X"] * len(df.columns))
-            + "|}\n"
-        )
+        f.write("\\begin{tabularx}{\\linewidth}{|" + "|".join(["X"] * len(df.columns)) + "|}\n")
         f.write("\\hline\n")
 
         # Write data rows
