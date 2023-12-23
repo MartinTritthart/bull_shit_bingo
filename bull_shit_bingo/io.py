@@ -32,18 +32,29 @@ def write_to_latex(df, saving_path: str = "output/table.tex"):
 def running_latex(file_path: str, output_file: str):
     try:
         output_file = f"{output_file}"
-        aux_file_extensions = [
-            ".aux",
-            ".fdb_latexmk",
-            ".fls",
-            ".log",
-            ".synctex.gz",
-        ]
-        for ext in aux_file_extensions:
-            aux_file = f"{output_file}{ext}"
-            if os.path.exists(aux_file):
-                os.remove(aux_file)
+        clear_latex_helpers()
         subprocess.run(["pdflatex", "-jobname", output_file, file_path], check=True)
         print("PDF generated")
     except subprocess.CalledProcessError as e:
         print(f"Error during compilation: {e}")
+
+
+def clear_latex_helpers(directory: str = "."):
+    aux_file_extensions = [
+        ".aux",
+        ".fdb_latexmk",
+        ".fls",
+        ".log",
+        ".synctex.gz",
+    ]
+
+    for output_file in os.listdir(directory):
+        if output_file.endswith(tuple(aux_file_extensions)):
+            os.remove(os.path.join(directory, output_file))
+
+
+def clear_output_pdf(directory: str = "."):
+    output_file_extensions = [".pdf"]
+    for output_file in os.listdir(directory):
+        if output_file.endswith(tuple(output_file_extensions)):
+            os.remove(os.path.join(directory, output_file))
