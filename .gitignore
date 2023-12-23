@@ -5,4 +5,5 @@
 *.synctex.gz
 .vscode
 .pytest_cache
-```
+.cache/
+__pycache__/
